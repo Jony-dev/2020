@@ -1,5 +1,5 @@
 ## The AWS Developer Challenge for Data Engineers Section A
-(/media/BMW Interview Diagram.png)
+![SectionA](/media/BMWInterviewDiagram.png)
 
 ## The AWS Developer Challenge for Data Engineers Section B
 
