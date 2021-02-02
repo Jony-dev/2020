@@ -1,8 +1,47 @@
 ## The AWS Developer Challenge for Data Engineers Section A
+(/media/BMW Interview Diagram.png)
 
+## The AWS Developer Challenge for Data Engineers Section B
 
+1A:
 
+1B:
 
+2:
+
+3:
+
+4:
+
+5A:
+
+5B:
+
+5C:
+
+6A:
+
+6B:
+
+6C:
+
+6D:
+
+7:
+
+8:
+
+9:
+
+10:
+
+11:
+
+12:
+
+13:
+
+14:
 
 
 
