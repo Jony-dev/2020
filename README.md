@@ -3,17 +3,17 @@
 
 ## The AWS Developer Challenge for Data Engineers Section B
 
-1A:
+1A: Data Source - Batched data ie: when a company only wants to ingest data once every 6 months
 
-1B:
+1B: Data Source - Streaming data this is when a company wants to store data as it is available ie: storing plant sensor information
 
-2:
+2: The API Gateway is used to provide a contact point for the company to be able to send their data to the Data Lake. The api is to allow a company to plug into the cloud infrustructure
 
-3:
+3: The lambda function is used to be able to distinguish what kind of data it is receiving and route the data depending on if it is batched or streamed data.
 
-4:
+4: The Kinesis stream is used for streamed data and the reason for its use is that it can in real time transform the data into the way we want it stored in S3
 
-5A:
+5A: Prepared data store is where the data is in its final form and is ready for consumption by either business or other applications
 
 5B:
 
