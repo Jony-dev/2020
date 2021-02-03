@@ -15,33 +15,35 @@
 
 5A: Prepared data store is where the data is in its final form and is ready for consumption by either business or other applications
 
-5B:
+5B: RAW bucket is where the batched files are stored that have not been converted in anyway. The data will be moved here when the company has supplied the data through the various AWS componenets
 
-5C:
+5C: Source Data store -  this is where the data has been converted in some minimal way from the raw data to a more structured format. Ie: adding meta data, removing columns or filenames etc
 
-6A:
+6A: The step functions are used to kick off the lambda ingest functions. This is triggered when the lambda (no. 3) has routed the data towards the step function. When the step function is executed it will run the various other lambda functions and glue jobs to move the data through Raw to prepared.
 
-6B:
+6B: This lambda is used in the initial phase. In which the batched data is stored in it original form. The lambda will call the corresponding glue job to be able to move the data to the RAW bucket
 
-6C:
+6C: This lambda is used to manipulate the data in a small way. The lambda will call the corresponding ETL glue job that will move the data from Raw to Source doing minimal adjustments to the data.
 
-6D:
+6D: This lambda is used to convert move and convert the data in the source bucket to the prepared by calling the appropriate ETL glue job. The data is moved and prepared in a way that business and other applications can make use of for either business intelligence or other use cases.
 
-7:
+7:The glue jobs component as mentioned in 6A - 6D is used to move and transform the data into the various buckets throughout the system.
 
-8:
+8: Athen DB is used by the users to be able to query the data in a adhoc fashion when the data needs to be searched
 
-9:
+9: CodeBuild is used to setup all the components within its security group (no 17) using terraforms to set up the ingest components (no. 2 - 10). Codebuild and terraforms can only create components based on the security group it is in based of Cloudformation and the VPC (no. 16) CodeBuild also creates a link to CloudWatch so that all process that are run can tracked and displayed in Cloudwatch.
 
-10:
+10: The DynimoDb is used to keep track of all the various configurations that need to be used in transforming the data by the various glue jobs. This is called by the step functions.
 
-11:
+11: CloudWatch is used by all the components to log information of what is happening throughout the system
 
-12:
+12: Cloudformation is used to create the Codebuild and all its various components. It has its own IAM policy that allows the Cloudformation to only create the necessary components.
 
-13:
+13: The Github repository that has all the configurations for CloudFormation and also Codebuild.
 
-14:
+14: The user that interacts with the Githib repository that is pulled by cloudformation and codebuild. Also the user can interact with Athena to make adhoc
+
+15: The IAM policy that specifies what CloudFormation can do
 
 
 
