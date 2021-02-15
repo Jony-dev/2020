@@ -66,7 +66,8 @@ This company is ingesting data into a 'data lake' running AWS. Below find a pict
 
 ![AWS-COMPONENTS](/media/awscp.png)
 
-#### Section A
+## Section A
+### Design an Architecture Diagram - We want to see a picture.
 Use the components shown above and create an architecture with your tool of choice (powerpoint / draw.io / etc) showing how to ingest data from an on-premise site into AWS. 
 
 Upload the diagram/picture into the Git repository and indicate where it's saved. Use the given components as far as possible to illustrate your solution.
@@ -84,27 +85,37 @@ Upload the diagram/picture into the Git repository and indicate where it's saved
 * Look at the available .tf files to get an understanding of the architecture.
 ___
 
-#### Section B
+## Section B
+### Describe the Section A - Architecture Diagram 
+
 Within this Readme.md describe the architecture above, giving detail when and how you would use the selected components.
+
+**Please do not reference any websites or published articles.** 
+**We are looking for original content!** 
+**We do not want to see definitions of the AWS components.**
+
+
 ##### Hints
 * Consider aspects like security (iam / firewalls / vpc / security groups / roles)
 * To each component used, give a detailed description on how it fits into the solution, please do not reference existing AWS documentation, use your own words! Feel free to document your thought process. We are interested to find out how you think.
 ___
 
-#### Section C
+## Section C
+**Try your best do not keep the section open, we want to see how you apply yourself**
+
 Within the Git Repository Structure:
 * Modify the CloudFormation Template [CFN/seed.yaml] in order to create a CodeBuild Project.
 * Update the _glue_jobs.tf_, _main.tf_ and _output.tf_ terraform files. 
 * Provide the python script that will be used within the glue job, using either python shell or spark, think here about using DynamoDB to keep certain job settings and table structures for S3.
 ___
 
-### Submit it
+## Submit it
 
 Please use a private repo just email us when you are done. 
 
-### My Solution 
+## Your Solution Starts HERE!!!
 Use this area to describe your solution as requested in *_Section B_*. 
 
 
-### Additional Comments / Information / Concerns
+## Additional Comments / Information / Concerns
 Add info here.
