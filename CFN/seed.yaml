@@ -90,13 +90,14 @@ Resources:
     Type : AWS::IAM::Role
     Properties :
       RoleName : TestAdminRole
-      ManagedPolicyArns : !Ref IAMCodeBuildPoliciesARNs
+      ManagedPolicyArns : 
+      - !Ref IAMCodeBuildPoliciesARNs
       AssumeRolePolicyDocument :
-        Version : 25/01/2021
+        Version : "2012-10-17"
         Statement : 
           Effect : Allow
-          Principle : 
-              Service : 
+          Principal:
+            Service : 
               - codebuild.amazonaws.com
           Action : sts:AssumeRole
       Tags: 
@@ -106,14 +107,15 @@ Resources:
   ####################################
   # VPC resources:
   ####################################
-  TestVPC:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock: !Ref PrivateSubnetIDs
+  SG:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: "Security group for VPC"
+      GroupName: "vpcSG"
       Tags: 
         - Key : environment
           Value : !Ref Environment
-
+      VpcId: !Ref VpcID
 
   ####################################
   # CloudWatch Logs
@@ -129,23 +131,29 @@ Resources:
       Tags: 
       - Key : environment
         Value : !Ref Environment 
-      Name: TestCodebuild
-      VpcConfig: !Ref TestVPC 
+      Name: "TestCodebuild"
+      VpcConfig: 
+        VpcId: !Ref VpcID
+        Subnets : !Ref PrivateSubnetIDs
+        SecurityGroupIds :
+          - !Ref SG
+      ServiceRole: !Ref AdminRole 
       Artifacts :
         Type : no_artifacts
-      Environment : 
-        Type : LINUX_CONTAINER
-        ComputeType: BUILD_GENERAL1_SMALL
-        Image : aws/codebuild/amazonlinux2-x86_64-standard:2.0
+      
+      Environment: 
+        Type : "LINUX_CONTAINER"
+        ComputeType: "BUILD_GENERAL1_SMALL"
+        Image : "aws/codebuild/amazonlinux2-x86_64-standard:2.0"
         EnvironmentVariables :
-          - Name : applicationName
-            Type : String
-            Value : TestCodeBuildApplication
-          - Name : Region
-            Type : String
-            Value : !Ref AWS::Region 
-        Source : 
-          Type: NO_SOURCE
+          - Name : "applicationName"
+            Type : "PLAINTEXT"
+            Value : "TestCodeBuildApplication"
+          - Name : "Region"
+            Type : "PLAINTEXT"
+            Value : !Sub "${AWS::Region}" 
+      Source :
+        Type: "NO_SOURCE" 
         BuildSpec: !Sub |
           version: 0.2
           phases:
@@ -163,11 +171,11 @@ Resources:
   ####################################
   # Terraform state:
   ####################################
-  AwsBucket:
+  S3Bucket:
     Type: AWS::S3::Bucket
-    Properties: 
-      AccessControl: Private | PublicRead | PublicReadWrite | AuthenticatedRead | LogDeliveryWrite | BucketOwnerRead | BucketOwnerFullControl
-      BucketName: Bucket_terraform-state 
+    Properties:
+      BucketName: !Sub "testbucket-${AWS::Region}"
+      AccessControl: Private
       Tags:
         - Key: Name
           Value: TFstateBucket
@@ -180,7 +188,7 @@ Resources:
 ####################################
 # OUTPUTS:
 ####################################
-Outputs:
-  CodeBuildURL:
-    Description: URL to CodeBuild project that will run Terraform
-    Value: !Sub "https://${AWS::Region}.console.aws.amazon.com/codesuite/codebuild/projects/${TestCodeBuildProject}"
+# Outputs:
+#   CodeBuildURL:
+#     Description: URL to CodeBuild project that will run Terraform
+#     Value: !Sub "https://${AWS::Region}.console.aws.amazon.com/codesuite/codebuild/projects/${TestCodeBuildProject}"
